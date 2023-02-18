@@ -2,17 +2,19 @@
 #include<stdlib.h>
 
 // ......... Get input from bubble_sort.txt file ...........
-void read_file(int *arr, int *size){
+int *read_file(int *size){
     FILE *fptr = fopen("bubble_sort.txt","r");
     if(fptr==NULL){
-        printf("File doesn't exist !\n");
+        return NULL;
     }
     else{
         fscanf(fptr,"%d",size);
+        int *arr = (int *)malloc(*size*sizeof(int)); // Dynamically memory allocation
         for(int i=0;i<*size;i++){
             fscanf(fptr,"%d",&arr[i]);
         }
         fclose(fptr);
+        return arr;
     }
 }
 
@@ -36,8 +38,11 @@ void bubble_sort(int *arr, int size){
 // ........... Main Function ............
 int main(){
     int size;
-    int *arr = (int *)malloc(100*sizeof(int)); // Memory allocation for the arr
-    read_file(arr,&size);
+    int *arr = read_file(&size);
+    if(arr==NULL){
+        printf("File doesn't exist !\n");
+        return 1;
+    }
     bubble_sort(arr,size);
     for(int i=0;i<size;i++)
         printf("%d ",arr[i]);
