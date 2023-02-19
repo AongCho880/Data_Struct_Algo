@@ -23,25 +23,25 @@ void print_stack(int *stack, int stack_count){
 
 
 //........ Push Function .............
-void push(int *stack, int data, int *stack_count, int *top_indx){
+void push(int *stack, int data, int *stack_count, int *top_index){
     if(*stack_count>=MAX_STACK_SIZE){   // Check if the Stack is full or not;
         printf("\n!!! Stack Overflow !!!\n");
         return;
     }
-    stack[++(*top_indx)] = data;
+    stack[++(*top_index)] = data;
     (*stack_count)++;
 }
 
 // .......... Pop Function .............
-int pop(int *stack, int *stack_count, int *top_indx){
+int pop(int *stack, int *stack_count, int *top_index){
     if(*stack_count==0){
         printf("\n!!! Stack Underflow !!!\n");
         return -1;
     }
-    if(*top_indx<0){
-        *top_indx = MAX_STACK_SIZE - 1;
+    if(*top_index<0){
+        *top_index = MAX_STACK_SIZE - 1;
     }
-    int data = stack[(*top_indx)--];
+    int data = stack[(*top_index)--];
     (*stack_count)--;
 
     return data;
@@ -49,7 +49,7 @@ int pop(int *stack, int *stack_count, int *top_indx){
 
 // ............... Main Function ...................
 int main(){
-    int stack[MAX_STACK_SIZE], stack_count = 0, top_indx = -1,data;
+    int stack[MAX_STACK_SIZE], stack_count = 0, top_index = -1,data;
     int operation;
 
     while(1){
@@ -65,10 +65,10 @@ int main(){
         else if(operation==1){
             printf("Data to push: ");
             scanf("%d",&data);
-            push(stack,data,&stack_count,&top_indx);
+            push(stack,data,&stack_count,&top_index);
         }
         else if(operation==2){
-            data = pop(stack,&stack_count,&top_indx);
+            data = pop(stack,&stack_count,&top_index);
         }
         else{
             printf("\nInvalid Operation !!!\n");
