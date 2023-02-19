@@ -36,11 +36,11 @@ int *count_sort(int *arr, int size, int mx){
     }
 
     int *output = calloc(size,sizeof(int));
-    for(int i=size-1;i>=0;i--){
+    for(int i=size-1;i>=0;i--){  // to ensure stability, traverse in reverse order
         output[count[arr[i]]-1] = arr[i];
         count[arr[i]]--;
     }
-
+    free(count);
     return output;
 }
 
