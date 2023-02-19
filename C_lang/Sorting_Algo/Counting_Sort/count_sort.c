@@ -45,7 +45,7 @@ int *count_sort(int *arr, int size, int mx){
 }
 
 
-// ............ Maing Function .............
+// ............ Main Function .............
 int main(){
     int size=0,mx=0;
     int *arr = read_file(&size,&mx);
