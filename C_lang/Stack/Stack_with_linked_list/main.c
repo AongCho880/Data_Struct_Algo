@@ -27,7 +27,7 @@ int main(){
         }
     }
 
-    printf("\nProgram exited successfully\n");
+    printf("\nProgram exited successfully.\n");
 
     return 0;
 }

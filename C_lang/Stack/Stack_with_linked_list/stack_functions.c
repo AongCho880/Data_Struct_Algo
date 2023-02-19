@@ -39,7 +39,7 @@ void traverse_stack(stack_node *top, int stack_count){
 }
 
 
-// ............ Push .............
+// ............ Push ...............
 void push(stack_node **top, int *stack_count, int data){
     if((*stack_count)>=MAX_STACK_SIZE){
         printf("\n!!! Stack Overflow !!!\n");
