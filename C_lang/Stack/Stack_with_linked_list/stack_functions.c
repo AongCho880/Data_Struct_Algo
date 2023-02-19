@@ -3,14 +3,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<limits.h>
+#include"stack_L.h"
 
 #define MAX_STACK_SIZE 10
 
-// ........... Define a structure ................
-typedef struct stack_node{
-    int data;
-    struct stack_node *next;
-}stack_node;
 
 // ........... Operations ................
 void operations(){
@@ -19,6 +15,8 @@ void operations(){
     printf("2. Pop\n");
     printf("0. Exit\n");
 }
+
+
 
 // ........... Create a new Stack .................
 stack_node *create_stack(int data){
@@ -29,6 +27,7 @@ stack_node *create_stack(int data){
     return node;
 }
 
+
 // ............... Traverse Stack ..................
 void traverse_stack(stack_node *top, int stack_count){
     printf("\nStack List: ");
@@ -38,6 +37,7 @@ void traverse_stack(stack_node *top, int stack_count){
     }
     printf("\nStack_count: %d\n",stack_count);
 }
+
 
 // ............ Push .............
 void push(stack_node **top, int *stack_count, int data){
@@ -51,6 +51,7 @@ void push(stack_node **top, int *stack_count, int data){
     (*stack_count)++;
 }
 
+
 // ........... Pop ................
 int pop(stack_node **top, int *stack_count){
     if((*stack_count)==0){
@@ -63,36 +64,4 @@ int pop(stack_node **top, int *stack_count){
     free(temp);
     (*stack_count)--;
     return data;
-}
-
-// ........... Main Function .............
-int main(){
-    stack_node *top = NULL;
-    int stack_count = 0;
-
-    int operation;
-
-    while(1){
-        operations();
-        traverse_stack(top,stack_count);
-        printf("\n> Operation: "); scanf("%d",&operation);
-        if(operation==0){
-            break;
-        }
-        else if(operation==1){
-            int data;
-            printf("Data to push: "); scanf("%d",&data);
-            push(&top,&stack_count,data);
-        }
-        else if(operation==2){
-            int data = pop(&top,&stack_count);
-        }
-        else{
-            printf("\nInvalid Operation !!!\n");
-        }
-    }
-
-    printf("\nProgram exited successfully\n");
-
-    return 0;
 }
