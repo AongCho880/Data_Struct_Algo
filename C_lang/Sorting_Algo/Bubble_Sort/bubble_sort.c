@@ -25,12 +25,6 @@ void swap(int *a, int *b){
     *b = temp;
 }
 
-
-// ................ Bubble Sort .............
-void bubbleSort(int *arr, int size){
-    bool swaped=
-}
-
 // ................ Bubble Sort .............
 void bubble_sort(int *arr, int size){
     for(int i=0;i<size-1;i++){
