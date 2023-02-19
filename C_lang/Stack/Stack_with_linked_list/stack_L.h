@@ -1,3 +1,6 @@
+// Header file for stack with linked list.
+// Author: Aong Cho Marma
+
 #ifndef stack_L
 #define stack_L
 

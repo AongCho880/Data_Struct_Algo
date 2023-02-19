@@ -1,4 +1,5 @@
-// Implementation of Stack with Linked List
+// Functions for stack with linked list.
+// Author: Aong Cho Marma
 
 #include<stdio.h>
 #include<stdlib.h>

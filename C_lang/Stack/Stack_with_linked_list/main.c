@@ -1,3 +1,6 @@
+// Main function for stack with linked list.
+// Author: Aong Cho Marma
+
 #include<stdio.h>
 #include"stack_L.h"
 
