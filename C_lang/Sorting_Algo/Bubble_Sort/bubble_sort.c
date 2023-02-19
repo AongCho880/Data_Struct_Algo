@@ -25,12 +25,24 @@ void swap(int *a, int *b){
     *b = temp;
 }
 
+
+// ................ Bubble Sort .............
+void bubbleSort(int *arr, int size){
+    bool swaped=
+}
+
 // ................ Bubble Sort .............
 void bubble_sort(int *arr, int size){
     for(int i=0;i<size-1;i++){
+        int swaped = 0;
         for(int j=0;j<size-i-1;j++){
-            if(arr[j]>arr[j+1])
+            if(arr[j]>arr[j+1]){
                 swap(&arr[j],&arr[j+1]);
+                swaped = 1;
+            }
+        }
+        if(swaped==0){ // swaped=0; means that array is alrady sorted
+            break;
         }
     }
 }
