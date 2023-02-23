@@ -47,7 +47,7 @@ int pop(int *stack, int *stack_count, int *top_index){
     return data;
 }
 
-// ............... Main Function ...................
+// ............... Main Function ....................
 int main(){
     int stack[MAX_STACK_SIZE], stack_count = 0, top_index = -1,data;
     int operation;
