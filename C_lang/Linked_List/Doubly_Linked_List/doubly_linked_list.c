@@ -142,7 +142,7 @@ void traverse(Node *head, int count){
     printf("\nData_count: %d\n",count);
 }
 
-// Clear List .......................
+// Clear List ......................
 void clear_list(Node **head){
     Node *node = NULL;
     while((*head)!=NULL){
