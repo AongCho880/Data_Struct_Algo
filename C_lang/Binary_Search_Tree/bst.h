@@ -25,18 +25,17 @@ Node *create_node(int val){
     return node;
 }
 
-// Insert node in Binary Search Tree ..........
-Node *insert_in_bst(Node *root,int val){
-    if(root==NULL){
-        return create_node(val);
+// Insert node in Binary Search Tree (Implemented with double pointer)..........
+void insert_in_bst(Node **root,int val){
+    if((*root)==NULL){
+        (*root) = create_node(val);
     }
-    else if(root->data > val){
-        root->left = insert_in_bst(root->left,val);
+    else if((*root)->data > val){
+        insert_in_bst(&((*root)->left),val);
     }
     else{
-        root->right = insert_in_bst(root->right,val);
+        insert_in_bst(&((*root)->right),val);
     }
-    return root;
 }
 
 // Pre_Order Traversal ................

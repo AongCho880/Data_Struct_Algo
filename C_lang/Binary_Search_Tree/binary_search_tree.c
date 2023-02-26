@@ -14,7 +14,7 @@ int main(){
     printf("\nInsert data: ");
     for(int i=0;i<n;i++){
         int data; scanf("%d",&data);
-        root = insert_in_bst(root,data);
+        insert_in_bst(&root,data);
     }
 
     // Pre_Order Sequence ...........
