@@ -52,3 +52,11 @@ int main(){
 
     return 0;
 }
+
+// ....... Time Complexity ..........
+//            Best Case    Worst Case
+// Insertion    O(n)          O(n)
+// Shift items  O(1)          O(n)
+// -----------------------------------
+//              O(n)          O(n*n)
+//            Liner         Quadratic
