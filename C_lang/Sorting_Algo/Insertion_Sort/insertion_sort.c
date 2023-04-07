@@ -18,7 +18,7 @@ int *read_data(int *size){
     return arr;
 }
 
-// Insertion Sort ...............
+// Insertion Sort ................
 void insertion_sort(int *arr, int size){
     for(int i=1;i<size;i++){
         int key = arr[i];
