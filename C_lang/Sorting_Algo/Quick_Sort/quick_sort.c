@@ -1,51 +1,78 @@
-// ....... Implement Quick Sort in C ...........
-// ............ Aong Cho Marma .................
+// ........... Quick Sort with C ...............
 
 #include<stdio.h>
+#include<stdlib.h>
 
-// Swap Function .................
-void swap(int arr[],int i, int j){
-    int temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
+// Get input from "test.txt" file ..............
+int *read_file(int *size){
+    FILE *fptr = fopen("quick_sort.txt","r");
+    
+    if(fptr == NULL){
+        return NULL;
+    }
+
+    fscanf(fptr,"%d",size);
+    int *arr = (int *)calloc(*size,sizeof(int));
+    for(int i=0;i<*size;i++){
+        fscanf(fptr,"%d",&arr[i]);
+    }
+
+    fclose(fptr);
+
+    return arr;
 }
 
-// Make Partition ....................
-int partition(int arr[], int p, int r){
-    int x = arr[r];
-    int i = p;
-    for(int j=p;j<r;j++){
-        if(arr[j]<=x){
-            swap(arr,i,j);
+// Swap Function ............
+void swap(int* a, int* b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Make Partition ..............
+int partition(int *arr,int lwb, int upb){
+    int pivot = arr[upb];
+    int i = lwb;
+    for(int j=lwb; j<upb;j++){
+        if(arr[j]<pivot){
+            swap(&arr[i],&arr[j]);
             i++;
         }
     }
-    swap(arr,i,r);
-
+    swap(&arr[i],&arr[upb]);
     return i;
 }
 
-// Quick Sort ..................
-void quick_sort(int arr[], int p, int r){
-    if(p<r){
-        int q = partition(arr,p,r);
-        quick_sort(arr,p,q-1);
-        quick_sort(arr,q+1,r);
+// Quick Sort ................
+void quick_sort(int *arr, int lwb, int upb){
+    if(lwb<upb){
+        int p = partition(arr,lwb,upb);
+        quick_sort(arr,lwb,p-1);
+        quick_sort(arr,p+1,upb);
     }
 }
 
-// Main Function ..........
+// Main Function ..................
 int main(){
+    int size=0;
+    int *arr = read_file(&size);
 
-    int arr[] = {2,8,7,1,3,5,6,4};
-    int size = sizeof(arr)/sizeof(arr[0]);
-
-    quick_sort(arr,0,size-1);
-
+    printf("Unsorted: ");
     for(int i=0;i<size;i++){
         printf("%d ",arr[i]);
     }
-    printf("\n");
 
+    quick_sort(arr,0,size-1);
+    
+    printf("\nSorted: ");
+    for(int i=0;i<size;i++){
+        printf("%d ",arr[i]);
+    }
+
+    free(arr);
     return 0;
 }
+
+// ........ Time Complexity ...........
+// Best Case        Worst Case
+//  O(n*log(n))       O(n*n)

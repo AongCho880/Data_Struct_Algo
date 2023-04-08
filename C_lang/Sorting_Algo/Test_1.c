@@ -1,82 +1,69 @@
-// ................ Counting Sort with C ............
+// ........... Quick Sort with C ...............
 
 #include<stdio.h>
 #include<stdlib.h>
 
-// Get data from "count_sort.txt" file ......
+// Get input from "test.txt" file ..............
 int *read_file(int *size){
     FILE *fptr = fopen("test.txt","r");
-    if(fptr==NULL){
+    
+    if(fptr == NULL){
         return NULL;
     }
 
     fscanf(fptr,"%d",size);
-
-    int *arr = (int *)calloc(*size,sizeof(int)); // memory allocation
+    int *arr = (int *)calloc(*size,sizeof(int));
     for(int i=0;i<*size;i++){
         fscanf(fptr,"%d",&arr[i]);
     }
+
     fclose(fptr);
+
     return arr;
 }
 
-// Counting Sort ............
-void counting_sort(int *arr, int size){
-    int max = arr[0];
-
-    // Find the max element
-    for(int i=0;i<size;i++){
-        if(max<arr[i]){
-            max = arr[i];
-        }
-    }
-
-    // Memory allocation
-    int *count = (int *)calloc(max+1,sizeof(int));
-    int *output = (int *)calloc(size,sizeof(int));
-
-    // Count the number of occurance of each element
-    for(int i=0;i<size;i++){
-        count[arr[i]]++;
-    }
-
-    // Compute the prefix sum
-    for(int i=1;i<=max;i++){
-        count[i] += count[i-1];
-    }
-
-    // Place the elements in the sorted order
-    for(int i=size-1;i>=0;i--){
-        output[count[arr[i]]-1] = arr[i];
-        count[arr[i]]--;
-    }
-
-    // Copy the sorted elements to the original array
-    for(int i=0;i<size;i++){
-        arr[i] = output[i];
-    }
-
-    free(count);
-    free(output);
+// Swap Function ............
+void swap(int* a, int* b){
+    int temp = *a;
+    *a = *b;
+    *b = temp;
 }
 
-// Main Function .........
+// Make Partition ..............
+int partition(int *arr,int lwb, int upb){
+    int pivot = arr[upb];
+    int i = lwb;
+    for(int j=lwb; j<upb;j++){
+        if(arr[j]<pivot){
+            swap(&arr[i],&arr[j]);
+            i++;
+        }
+    }
+    swap(&arr[i],&arr[upb]);
+    return i;
+}
+
+// Quick Sort ................
+void quick_sort(int *arr, int lwb, int upb){
+    if(lwb<upb){
+        int p = partition(arr,lwb,upb);
+        quick_sort(arr,lwb,p-1);
+        quick_sort(arr,p+1,upb);
+    }
+}
+
+// Main Function ..................
 int main(){
     int size=0;
     int *arr = read_file(&size);
-
-    if(arr==NULL){
-        printf("\nUnable to create array !!!\n");
-        return 0;
-    }
 
     printf("Unsorted: ");
     for(int i=0;i<size;i++){
         printf("%d ",arr[i]);
     }
-    
-    counting_sort(arr,size);
 
+    quick_sort(arr,0,size-1);
+    
     printf("\nSorted: ");
     for(int i=0;i<size;i++){
         printf("%d ",arr[i]);
@@ -86,11 +73,6 @@ int main(){
     return 0;
 }
 
-// ...... Time Complexity .......
-// Find max      : O(n)
-// Count elements: O(n)
-// Prefix sum    : O(k)   [k = range of element]
-// Sort elements : O(n)
-// Copy elements : O(n)
-// ----------------------
-// Complexity    : O(n+k)
+// ........ Time Complexity ...........
+// Best Case        Worst Case
+//  O(n*log(n))       O(n*n)
