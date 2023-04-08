@@ -1,78 +1,87 @@
-// ........... Quick Sort with C ...............
+// ............. Binary Search Tree .............
 
 #include<stdio.h>
 #include<stdlib.h>
 
-// Get input from "test.txt" file ..............
-int *read_file(int *size){
+// Define Structure ...........
+typedef struct Node{
+    int data;
+    struct Node *left;
+    struct Node *right;
+}Node;
+
+// Create a new Node ..........
+Node *create_node(int val){
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    newNode->data = val;
+    newNode->left = NULL;
+    newNode->right = NULL;
+
+    return newNode;
+}
+
+// Insert data in BST .............
+void insert_in_bst(Node **root, int val){
+    if((*root)==NULL){
+        (*root) = create_node(val); 
+    }
+    else if((*root)->data > val){
+        insert_in_bst(&((*root)->left), val);
+    }
+    else{
+        insert_in_bst(&((*root)->right), val);
+    }
+}
+
+// Pre-Order Traversal .................
+void pre_order(Node *root){
+    if(root != NULL){
+        printf("%d ",root->data);
+        pre_order(root->left);
+        pre_order(root->right);
+    }
+}
+
+// In_Order Traversal ..............
+void in_order(Node *root){
+    if(root!=NULL){
+        in_order(root->left);
+        printf("%d ",root->data);
+        in_order(root->right);
+    }
+}
+
+// Post_Order Traversal ...........
+void post_order(Node *root){
+    if(root!=NULL){
+        post_order(root->left);
+        post_order(root->right);
+        printf("%d ",root->data);
+    }
+}
+
+// Maing Function .................
+int main(){
     FILE *fptr = fopen("test.txt","r");
-    
-    if(fptr == NULL){
-        return NULL;
-    }
+    int size;
+    fscanf(fptr,"%d",&size);
 
-    fscanf(fptr,"%d",size);
-    int *arr = (int *)calloc(*size,sizeof(int));
-    for(int i=0;i<*size;i++){
-        fscanf(fptr,"%d",&arr[i]);
+    Node *root = NULL;
+    int data;
+    for(int i=0;i<size;i++){
+        fscanf(fptr,"%d",&data);
+        insert_in_bst(&root,data);
     }
-
     fclose(fptr);
 
-    return arr;
-}
+    printf("\nPre_Order Traversal: ");
+    pre_order(root);
 
-// Swap Function ............
-void swap(int* a, int* b){
-    int temp = *a;
-    *a = *b;
-    *b = temp;
-}
+    printf("\nIn_order Traversal: ");
+    in_order(root);
 
-// Make Partition ..............
-int partition(int *arr,int lwb, int upb){
-    int pivot = arr[upb];
-    int i = lwb;
-    for(int j=lwb; j<upb;j++){
-        if(arr[j]<pivot){
-            swap(&arr[i],&arr[j]);
-            i++;
-        }
-    }
-    swap(&arr[i],&arr[upb]);
-    return i;
-}
+    printf("\nPost_order Traversal: ");
+    post_order(root);
 
-// Quick Sort ................
-void quick_sort(int *arr, int lwb, int upb){
-    if(lwb<upb){
-        int p = partition(arr,lwb,upb);
-        quick_sort(arr,lwb,p-1);
-        quick_sort(arr,p+1,upb);
-    }
-}
-
-// Main Function ..................
-int main(){
-    int size=0;
-    int *arr = read_file(&size);
-
-    printf("Unsorted: ");
-    for(int i=0;i<size;i++){
-        printf("%d ",arr[i]);
-    }
-
-    quick_sort(arr,0,size-1);
-    
-    printf("\nSorted: ");
-    for(int i=0;i<size;i++){
-        printf("%d ",arr[i]);
-    }
-
-    free(arr);
     return 0;
 }
-
-// ........ Time Complexity ...........
-// Best Case        Worst Case
-//  O(n*log(n))       O(n*n)

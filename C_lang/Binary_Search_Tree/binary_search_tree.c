@@ -5,15 +5,19 @@
 #include "bst.h"
 
 int main(){
-    Node *root = NULL;
+
+    FILE *fptr = fopen("data.txt","r");
+    if(fptr==NULL){
+        printf("\nFile doesn't exist !!!\n");
+    }
+
     int n;
-    printf("Numebr of node: ");
-    scanf("%d",&n);
+    fscanf(fptr,"%d",&n);
+    Node *root = NULL;
 
     // Data insertion ..............
-    printf("\nInsert data: ");
     for(int i=0;i<n;i++){
-        int data; scanf("%d",&data);
+        int data; fscanf(fptr,"%d",&data);
         insert_in_bst(&root,data);
     }
 
