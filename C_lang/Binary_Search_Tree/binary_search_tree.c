@@ -33,5 +33,15 @@ int main(){
     printf("\nPost_order sequence: ");
     post_order(root);
 
+    // Search data in BST ...........
+    int key;
+    printf("\nEnter data to search: ");
+    scanf("%d",&key);
+    if(searchInBST(root,key)){
+        printf(">>> Data exist.\n");
+    }else{
+        printf(">>> Data doesn't exixt !\n");
+    }
+
     return 0;
 }

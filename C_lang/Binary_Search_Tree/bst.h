@@ -38,6 +38,23 @@ void insert_in_bst(Node **root,int val){
     }
 }
 
+// Search in BST ......................
+Node *searchInBST(Node *root, int key){
+    if(root==NULL){
+        return NULL;
+    }
+    // when data == key
+    else if(root->data == key){
+        return root;
+    }
+    // when data > key
+    else if(root->data > key){
+        return searchInBST(root->left, key);
+    }
+    // when data < key
+    return searchInBST(root->right, key);
+}
+
 // Pre_Order Traversal ................
 void pre_order(Node *root){
     if(root == NULL){
