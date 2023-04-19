@@ -1,87 +1,38 @@
-// ............. Binary Search Tree .............
-
+// Insertion-Sort with C .....................
 #include<stdio.h>
 #include<stdlib.h>
 
-// Define Structure ...........
-typedef struct Node{
-    int data;
-    struct Node *left;
-    struct Node *right;
-}Node;
-
-// Create a new Node ..........
-Node *create_node(int val){
-    Node *newNode = (Node *)malloc(sizeof(Node));
-    newNode->data = val;
-    newNode->left = NULL;
-    newNode->right = NULL;
-
-    return newNode;
-}
-
-// Insert data in BST .............
-void insert_in_bst(Node **root, int val){
-    if((*root)==NULL){
-        (*root) = create_node(val); 
-    }
-    else if((*root)->data > val){
-        insert_in_bst(&((*root)->left), val);
-    }
-    else{
-        insert_in_bst(&((*root)->right), val);
+// Insert-Sort Function ............
+void insertionSort(int A[], int n) {
+    for(int j=1;j<n;j++) {
+        int key = A[j];
+        // Insert A[j] into the sorted sequence A[0:j-1]
+        int i = j-1;
+        while(i>=0 && A[i]>key) {
+            A[i+1] = A[i];
+            i--;
+        }
+        A[i+1] = key;
     }
 }
 
-// Pre-Order Traversal .................
-void pre_order(Node *root){
-    if(root != NULL){
-        printf("%d ",root->data);
-        pre_order(root->left);
-        pre_order(root->right);
+// Print array .......
+void print(int A[], int n) {
+    for(int i=0;i<n;i++) {
+        printf("%d ",A[i]);
     }
 }
 
-// In_Order Traversal ..............
-void in_order(Node *root){
-    if(root!=NULL){
-        in_order(root->left);
-        printf("%d ",root->data);
-        in_order(root->right);
-    }
-}
-
-// Post_Order Traversal ...........
-void post_order(Node *root){
-    if(root!=NULL){
-        post_order(root->left);
-        post_order(root->right);
-        printf("%d ",root->data);
-    }
-}
-
-// Maing Function .................
-int main(){
-    FILE *fptr = fopen("test.txt","r");
-    int size;
-    fscanf(fptr,"%d",&size);
-
-    Node *root = NULL;
-    int data;
-    for(int i=0;i<size;i++){
-        fscanf(fptr,"%d",&data);
-        insert_in_bst(&root,data);
-    }
-    fclose(fptr);
-
-    printf("\nPre_Order Traversal: ");
-    pre_order(root);
-
-    printf("\nIn_order Traversal: ");
-    in_order(root);
-
-    printf("\nPost_order Traversal: ");
-    post_order(root);
+// Main Function .....
+int main() {
+    int A[] = {5,2,4,6,1,3};
+    int n = sizeof(A)/sizeof(A[0]);
+    
+    printf("\nBefore sort: ");
+    print(A,n);
+    insertionSort(A,n);
+    printf("\nAfter sort: ");
+    print(A,n);
 
     return 0;
 }

@@ -85,4 +85,40 @@ void post_order(Node *root){
     printf("%d ",root->data);
 }
 
+
+// Delete a node .........
+Node *deleteNode(Node *root, int key){
+    // If the tree is empty
+    if(root==NULL){
+        return root;
+    }
+
+    // Find the node
+    if(key < root->data){
+        root->left = deleteNode(root->left,key);
+    }
+    else if(key>root->data){
+        root->right = deleteNode(root->right, key);
+    }
+    else{
+        // Only one child
+        if(root->left = NULL){
+            Node *temp == root->right;
+            free(root);
+            return temp;
+        }
+        else if(root->right == NULL){
+            Node *temp = root->left;
+            free(root);
+            return temp;
+        }
+        // Node with two children
+        Node *temp = minValueNode(root->right);
+        
+        root->data = temp->data
+
+        root->right = deleteNode(root->right, temp->data)
+    }
+    return root;
+}
 #endif
